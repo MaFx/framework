@@ -424,6 +424,20 @@ abstract class Relation
     }
 
     /**
+     * Get the polymorphic alias for the Model.
+     * Returns Model class if no custom alias set.
+     *
+     * @param  Model $model
+     * @return int|string
+     */
+    public static function getMorphModelAlias(Model $model)
+    {
+        $alias = array_search(get_class($model), static::$morphMap);
+
+        return $alias !== false ? $alias : get_class($model);
+    }
+
+    /**
      * Handle dynamic method calls to the relationship.
      *
      * @param  string  $method
